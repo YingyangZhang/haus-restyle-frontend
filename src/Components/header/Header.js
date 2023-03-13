@@ -27,7 +27,7 @@ export default function Header() {
                     <i className='bx bx-x' onClick={hideDropDown}></i>
                 </div>
 
-                <i className='bx bx-menu-alt-right' style={{color: '#000'}} onClick={() => setIsDropDownMenu(true)}></i>
+                <i className='bx bx-menu-alt-right' onClick={() => setIsDropDownMenu(true)}></i>
             </div>
         </div>
     )

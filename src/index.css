@@ -13,9 +13,14 @@
   --medium: 500;
   --bold: 700;
 
-  --icon-size-mobile: 2.4rem;
+  --header-icon-mobile: 2.3rem;
 
-  --header-padding: 1.5rem 1.9rem;
+  --medium-mobile-font-size : 1.3rem;
+
+  --home-mobile-padding: 0 1.9rem;
+  --header-mobile-padding: 1.5rem 1.9rem; 
+
+  --animation-transition: .3s;
 }
 
 /* ---------- General ---------- */
@@ -30,8 +35,10 @@ ul {
   list-style: none;
 }
 
-p {
+p,
+h1 {
   font-family: var(--main-font);
+  font-weight: var(--regular);
   color: #fff;
 }
 
@@ -80,7 +87,8 @@ img {
   top: 0;
   left: 0;
   width: 100%;
-  padding: var(--header-padding);
+  padding: var(--header-mobile-padding);
+  z-index: 100;
 }
 
 .nav-container {
@@ -89,23 +97,25 @@ img {
 
 .header-container h1 {
   font-family: var(--logo-font);
+  color: #fff;
   font-size: 2.6rem;
   line-height: 2.5rem;
 }
 
 .nav-container i {
-  font-size: var(--icon-size-mobile);
+  font-size: var(--header-icon-mobile);
   cursor: pointer;
 }
 
 .dropdown-menu-container {
   align-items: flex-start;
   position: absolute;
-  top: -300%;
+  top: -320%;
   left: 0;
   width: 100%;
-  padding: var(--header-padding);
-  transition: .3s;
+  padding: var(--header-mobile-padding);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  transition: var(--animation-transition);
 }
 
 .dropdown-menu-logout {
@@ -114,7 +124,7 @@ img {
 }
 
 .dropdown-menu-logout p {
-  font-size: 1.2rem;
+  font-size: var(--medium-mobile-font-size);
 }
 
 .dropdown-menu-logout i {
@@ -134,5 +144,68 @@ img {
 }
 
 .dropdown-menu a {
-  font-size: 1.2rem;
+  font-size: var(--medium-mobile-font-size);
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu-logout:hover,
+.dropdown-menu-container .bx-x:hover {
+  opacity: .6;
+}
+
+/* ---------- Home ---------- */
+
+.home-container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--home-mobile-padding);
+}
+
+.home-headline-container {
+  width: 100%;
+}
+
+.home-headline-container h1 {
+  font-size: 2.1rem;
+  font-weight: var(--medium);
+  margin-bottom: 5px;
+}
+
+.home-headline-container p {
+  font-size: 1rem;
+}
+
+.home-footer-container {
+  position: absolute;
+  width: 100%;
+  bottom: 1.5rem;
+  padding: var(--home-mobile-padding);
+}
+
+/* ---------- Footer ---------- */
+
+.footer-container {
+  position: relative;
+}
+
+.footer-container p,
+.footer-container a {
+  font-size: var(--medium-mobile-font-size);
+}
+
+.footer-container a {
+  position: absolute;
+  right: 0;
+  bottom: 2rem;
+}
+
+.footer-container a:hover {
+  opacity: .6;
 }
