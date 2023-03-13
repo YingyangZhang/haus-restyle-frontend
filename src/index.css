@@ -18,6 +18,7 @@
   --medium-mobile-font-size : 1.3rem;
 
   --home-mobile-padding: 0 1.9rem;
+  --main-mobile-padding: 9.5rem 1.9rem;
   --header-mobile-padding: 1.5rem 1.9rem; 
 
   --animation-transition: .3s;
@@ -36,6 +37,7 @@ ul {
 }
 
 p,
+span,
 h1 {
   font-family: var(--main-font);
   font-weight: var(--regular);
@@ -95,7 +97,7 @@ img {
   align-items: flex-start;
 }
 
-.header-container h1 {
+.header-logo {
   font-family: var(--logo-font);
   color: #fff;
   font-size: 2.6rem;
@@ -208,4 +210,46 @@ img {
 
 .footer-container a:hover {
   opacity: .6;
+}
+
+/* ---------- Furnitures ---------- */
+
+.furnitures-container {
+  width: 100vw;
+  height: 100vh;
+  padding: var(--main-mobile-padding);
+}
+
+.cat-selections-container {
+  max-width: 500px;
+}
+
+.cat-selection {
+  cursor: pointer;
+}
+
+.cat-selection span {
+  font-size: var(--medium-mobile-font-size);
+  position: relative;
+}
+
+.cat-selection span:hover {
+  opacity: .6;
+}
+
+input[type="radio"]  {
+  opacity: 0;
+  width: 0;
+}
+
+.cat-selection input:checked ~ span::after {
+  content: "";
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 400%);
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  background-color: #fff;
 }
