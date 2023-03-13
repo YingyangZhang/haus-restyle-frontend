@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Footer from "../footer/Footer";
 
 export default function Home() {
     const [randomImgIndex, setrandomImgIndex] = useState(randomIndex(0, 2))
@@ -14,7 +15,13 @@ export default function Home() {
 
     return (
         <div className='home-container' style={homeBackground}>
-
+            <div className='home-headline-container'>
+                <h1>'Make a Statement'</h1>
+                <p>Experience the art of furniture.</p>
+            </div>
+            <div className='home-footer-container'>
+                <Footer />
+            </div>
         </div>
     )
 }
