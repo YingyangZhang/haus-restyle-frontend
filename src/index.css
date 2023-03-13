@@ -1,0 +1,58 @@
+/* ---------- Fonts ---------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+/* ---------- CSS Variables ---------- */
+
+:root {
+  --logo-font: 'Space Mono', monospace;
+  --main-font: 'Inter', sans-serif;
+
+  --regular: 400;
+  --medium: 500;
+  --bold: 700;
+}
+
+/* ---------- General ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+p {
+    font-family: var(--main-font);
+    color: #fff;
+}
+
+a {
+    font-family: var(--main-font);
+    color: #fff;
+    text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Reuseable Classes ---------- */
+
+.flex-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img-position {
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center; 
+}
