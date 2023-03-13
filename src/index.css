@@ -12,6 +12,10 @@
   --regular: 400;
   --medium: 500;
   --bold: 700;
+
+  --icon-size-mobile: 2.4rem;
+
+  --header-padding: 1.5rem 1.9rem;
 }
 
 /* ---------- General ---------- */
@@ -27,19 +31,31 @@ ul {
 }
 
 p {
-    font-family: var(--main-font);
-    color: #fff;
+  font-family: var(--main-font);
+  color: #fff;
 }
 
 a {
-    font-family: var(--main-font);
-    color: #fff;
-    text-decoration: none;
+  font-family: var(--main-font);
+  text-decoration: none;
+  color: #fff;
+}
+
+i {
+  color: #fff;
+  line-height: 1;
 }
 
 img {
   max-width: 100%;
   height: auto;
+}
+
+.grey-background {
+  background-image: url('https://haus-imgs.s3.amazonaws.com/background_grey.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* ---------- Reuseable Classes ---------- */
@@ -55,4 +71,68 @@ img {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center; 
+}
+
+/* ---------- Header ---------- */
+
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--header-padding);
+}
+
+.nav-container {
+  align-items: flex-start;
+}
+
+.header-container h1 {
+  font-family: var(--logo-font);
+  font-size: 2.6rem;
+  line-height: 2.5rem;
+}
+
+.nav-container i {
+  font-size: var(--icon-size-mobile);
+  cursor: pointer;
+}
+
+.dropdown-menu-container {
+  align-items: flex-start;
+  position: absolute;
+  top: -300%;
+  left: 0;
+  width: 100%;
+  padding: var(--header-padding);
+  transition: .3s;
+}
+
+.dropdown-menu-logout {
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.dropdown-menu-logout p {
+  font-size: 1.2rem;
+}
+
+.dropdown-menu-logout i {
+  font-size: 1.2rem;
+  margin-left: 5px;
+  padding-top: 1px;
+}
+
+.show-dropdown {
+  top: 0;
+}
+
+.dropdown-menu {
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 30px;
+}
+
+.dropdown-menu a {
+  font-size: 1.2rem;
 }
