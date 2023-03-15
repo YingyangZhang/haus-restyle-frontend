@@ -19,6 +19,7 @@ export default function Home() {
                 <h1>'Make a Statement'</h1>
                 <p>Experience the art of furniture.</p>
             </div>
+            
             <div className='home-footer-container'>
                 <Footer />
             </div>

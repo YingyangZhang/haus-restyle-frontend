@@ -11,11 +11,11 @@ export default function Header() {
     return (
         <div className='header-container'>
             <div className='nav-container flex-box'>
-                <h1>HAUS</h1>
+                <NavLink to='/' exact='true' className='header-logo'>HAUS</NavLink>
 
                 <div className={`dropdown-menu-container flex-box grey-background ${isDropDownMenu ? 'show-dropdown' : ''}`}>
                     <ul className='dropdown-menu flex-box'>
-                        <li><NavLink to='/' exact='true' onClick={hideDropDown}>Furnitures</NavLink></li>
+                        <li><NavLink to='/furnitures' exact='true' onClick={hideDropDown}>Furnitures</NavLink></li>
                         <li><NavLink to='/' exact='true' onClick={hideDropDown}>Cart(1)</NavLink></li>
                         <li><NavLink to='/' exact='true' onClick={hideDropDown}>Profile</NavLink></li>
                         <li className='dropdown-menu-logout flex-box' onClick={hideDropDown}> 
