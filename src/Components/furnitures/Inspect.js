@@ -1,25 +1,58 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import RelatedFurnitures from "./RelatedFurnitures";
 import Footer from "../footer/Footer";
 
 export default function Inspect({isScrolled}) {
     const [furniture, setFurniture] = useState({});
-    
+    const [relatedFurnitures, setRelatedFurnitures] = useState([]);
+    const [isTargetInViewport, setIsTargetInViewport] = useState(false); 
     const { id } = useParams();
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`https://haus-db.onrender.com/furnitures/${id}`);
-            const data = await response.json();
+        fetch(`https://haus-db.onrender.com/furnitures/${id}`)
+        .then(r => r.json())
+        .then(data => {
             setFurniture(data);
-          };
-          fetchData();
-      },[])
+        })
+    },[id]);
+
+    useEffect(() => {
+        fetch('https://haus-db.onrender.com/furnitures')
+          .then(r => r.json())
+          .then(data => {
+            const filteredFurnitures = data.filter(relatedFurniture => {
+              return relatedFurniture.category.category_name === furniture.category?.category_name;
+            });
+            const randomFurnitures = filteredFurnitures.sort(() => Math.random() - 0.5).slice(0, 3);
+            setRelatedFurnitures(randomFurnitures);
+            console.log(randomFurnitures);
+          });
+    }, [furniture.category]);
+
+    useEffect(() => {
+        function handleScroll() {
+          const targetElement = document.querySelector('.related-furnitures-container');
+          const targetElementPosition = targetElement.getBoundingClientRect().top;
+    
+          if (targetElementPosition < window.innerHeight * .7) {
+            setIsTargetInViewport(true);
+          } else {
+            setIsTargetInViewport(false);
+          }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+    
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
       return ( 
         <div className='inspect-container'>
             <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
-                <div className='inspect-furniture-container flex-box'>
+                <div className={`inspect-furniture-container flex-box ${isTargetInViewport ? 'shrink-container' : ''}`}>
                     <div className='inspect-furniture'>
                         <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
                             {furniture.name}
@@ -33,7 +66,7 @@ export default function Inspect({isScrolled}) {
                     </div>
                 </div>
 
-                <div className='furniture-designer'>
+                <div className={`furniture-designer ${isTargetInViewport ? 'hide-designer' : ''}`}>
                     <p>{furniture.designer}</p>
                 </div>
             </div>
@@ -67,6 +100,11 @@ export default function Inspect({isScrolled}) {
                     <p>Origin</p>
                     <p>{furniture.origin}</p>
                 </div>
+            </div>
+
+            <div className='related-furnitures-container'>
+                <h1>Related Furnitures</h1>
+                {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures}/>}
             </div>
 
             <div className='subpages-footer-container'>

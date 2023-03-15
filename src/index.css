@@ -407,6 +407,13 @@ input[type="radio"]  {
   height: 110px;
 }
 
+.shrink-container {
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .inspect-furniture p {
   font-size: var(--small-font-size-mobile);
 }
@@ -425,6 +432,10 @@ input[type="radio"]  {
 .furniture-designer {
   max-width: 160px;
   text-align: right;
+}
+
+.hide-designer {
+  display: none;
 }
 
 .add-to-cart {
@@ -452,4 +463,13 @@ input[type="radio"]  {
 
 .inspect-detail p {
   font-size: var(--small-font-size-mobile);
+}
+
+.related-furnitures-container {
+  margin-top: 5.5rem;
+}
+
+.related-furnitures-container h1 {
+  font-size: var(--big-font-size-mobile);
+  margin-bottom: 1.3rem;
 }
