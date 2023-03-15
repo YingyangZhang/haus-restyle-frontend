@@ -418,6 +418,10 @@ input[type="radio"]  {
   font-size: var(--small-font-size-mobile);
 }
 
+.hide-price {
+  display: none;
+}
+
 .big-font {
   font-size: var(--big-font-size-mobile);
   font-weight: var(--medium);

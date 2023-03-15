@@ -57,7 +57,7 @@ export default function Inspect({isScrolled}) {
                         <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
                             {furniture.name}
                         </h1>
-                        <p>USD {furniture.price && furniture.price.toLocaleString()}</p>
+                        <p className={isTargetInViewport ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
                     </div>
 
                     <div className='add-to-cart flex-box'>
