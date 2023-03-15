@@ -1,14 +1,16 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-scroll';
 import Search from "./Search";
 import Footer from "../footer/Footer";
 
-export default function Furnitures({furnitures, setFurnitures, searchResult, setSearchResult}) {
+export default function Furnitures({furnitures, setFurnitures, searchResult, setSearchResult, isScrolled}) {
     const [selectedCat, setSelectedCat] = useState('All');
     const [isSearch, setIsSearch] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
     const filteredFurnitures = searchResult.filter(furniture => {
         return selectedCat === "All" ? furniture : furniture.category.category_name === selectedCat;
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handlePopstate = () => {
@@ -22,22 +24,13 @@ export default function Furnitures({furnitures, setFurnitures, searchResult, set
         };
     }, []);
 
-    useEffect(() => {
-        const handleScroll = () => {
-          const scrollY = window.scrollY;
-          setIsScrolled(scrollY >= 3);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-
     function handleCat(e) {
         setSelectedCat(e.target.value);
     }
 
     return (
-        <div className="furnitures-container flex-box">
-            <div className={`furnitures-operations-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
+        <div className='furnitures-container flex-box' id='top'>
+            <div className={`furnitures-operations-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`} >
                 <div className="cat-selections-container flex-box">
                     <label className="cat-selection">
                         <input type="radio" name='selection' value="All" defaultChecked={true} onChange={handleCat} />
@@ -66,7 +59,7 @@ export default function Furnitures({furnitures, setFurnitures, searchResult, set
             <div className='cards-container'>
                 {filteredFurnitures.map(furniture => {
                     return (
-                        <div className='card' key={furniture.id}>
+                        <div className='card' onClick={() => navigate(`/furnitures/${furniture.id}`, {state: {furniture}})} key={furniture.id}>
                             <div className='card-img-container'>
                                 <img src={furniture.image.thumbnail} alt='image' />
                             </div>
@@ -79,11 +72,24 @@ export default function Furnitures({furnitures, setFurnitures, searchResult, set
                 })}
             </div>
 
-            <div className='furnitures-footer-container'>
+            <Link to="top"
+                smooth={true}
+                duration={500}
+                offset={-100} 
+                className='back-to-top-container'>
+                <i className='bx bx-chevron-up'></i>
+            </Link>
+
+            <div className='subpages-footer-container'>
                 <Footer />
             </div>
 
-            {isSearch ? <Search setIsSearch={setIsSearch} furnitures={furnitures} setFurnitures={setFurnitures} setSearchResult={setSearchResult}/> : ''}
+            {isSearch ? 
+            <Search setIsSearch={setIsSearch} 
+                    furnitures={furnitures} 
+                    setFurnitures={setFurnitures} 
+                    setSearchResult={setSearchResult}/> 
+            : ''}
         </div>
     )
 }
