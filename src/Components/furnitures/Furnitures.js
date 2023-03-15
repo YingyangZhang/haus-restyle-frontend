@@ -59,7 +59,7 @@ export default function Furnitures({furnitures, setFurnitures, searchResult, set
             <div className='cards-container'>
                 {filteredFurnitures.map(furniture => {
                     return (
-                        <div className='card' onClick={() => navigate(`/furnitures/${furniture.id}`, {state: {furniture}})} key={furniture.id}>
+                        <div className='card' onClick={() => navigate(`/furnitures/${furniture.id}`)} key={furniture.id}>
                             <div className='card-img-container'>
                                 <img src={furniture.image.thumbnail} alt='image' />
                             </div>
