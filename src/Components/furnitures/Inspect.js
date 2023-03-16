@@ -26,7 +26,6 @@ export default function Inspect({isScrolled}) {
             });
             const randomFurnitures = filteredFurnitures.sort(() => Math.random() - 0.5).slice(0, 3);
             setRelatedFurnitures(randomFurnitures);
-            console.log(randomFurnitures);
           });
     }, [furniture.category]);
 
