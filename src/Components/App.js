@@ -5,16 +5,18 @@ import Home from './home/Home';
 import Furnitures from './furnitures/Furnitures';
 import Inspect from './furnitures/Inspect';
 import Forms from './users/Forms';
+import Cart from './users/Cart';
 import { useState, useEffect } from 'react';
 
 function App() {
   const [user, setUser] = useState([]);
+  const [cart, setCart] = useState([]);
   const [furnitures, setFurnitures] = useState([]);
   const [searchResult, setSearchResult] = useState(furnitures);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isForm, setIsForm] = useState(false);
   const token = localStorage.getItem("jwt");
-
+  
   useEffect(() => {
     if (token !== null) {
     fetch("https://haus-db.onrender.com/me", {
@@ -26,6 +28,7 @@ function App() {
     .then(r => r.json())
     .then(data => {
       setUser(data.user);
+      setCart(data.user.cart_items)
       console.log(data.user);
     })
     }
@@ -54,8 +57,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header setIsForm={setIsForm} user={user} setUser={setUser} />
-      {isForm ? <Forms setIsForm={setIsForm} setUser={setUser} /> : null}
+      <Header setIsForm={setIsForm} user={user} setUser={setUser} cart={cart} />
+      {isForm ? <Forms setIsForm={setIsForm} setUser={setUser} setCart={setCart} /> : null}
 
       <Routes>
         <Route path='/' element={<Home />} />
@@ -69,7 +72,11 @@ function App() {
         </Route>
 
         <Route path='/furnitures/:id' 
-               element={<Inspect isScrolled={isScrolled} />} >
+               element={<Inspect isScrolled={isScrolled} user={user} setUser={setUser} cart={cart} setCart={setCart} />} >
+        </Route>
+
+        <Route path='/cart' 
+               element={<Cart cart={cart} setCart={setCart} isScrolled={isScrolled} />} >
         </Route>
       </Routes>
     </div>

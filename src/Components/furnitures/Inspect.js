@@ -3,11 +3,31 @@ import { useParams } from "react-router-dom";
 import RelatedFurnitures from "./RelatedFurnitures";
 import Footer from "../footer/Footer";
 
-export default function Inspect({isScrolled}) {
+export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     const [furniture, setFurniture] = useState({});
     const [relatedFurnitures, setRelatedFurnitures] = useState([]);
-    const [isTargetInViewport, setIsTargetInViewport] = useState(false); 
     const { id } = useParams();
+    const [isScrollingDown, setIsScrollingDown] = useState(false);
+    const token = localStorage.getItem("jwt");
+
+    useEffect(() => {
+    const handleScroll = () => {
+        const scrollPosition = window.pageYOffset;
+        const scrollThreshold = 83;
+        
+        if (scrollPosition > scrollThreshold && !isScrollingDown) {
+            setIsScrollingDown(true);
+        } else if (scrollPosition < scrollThreshold && isScrollingDown) {
+            setIsScrollingDown(false);
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+    }, [isScrollingDown]);
 
     useEffect(() => {
         fetch(`https://haus-db.onrender.com/furnitures/${id}`)
@@ -29,88 +49,107 @@ export default function Inspect({isScrolled}) {
           });
     }, [furniture.category]);
 
-    useEffect(() => {
-        function handleScroll() {
-          const targetElement = document.querySelector('.related-furnitures-container');
-          const targetElementPosition = targetElement.getBoundingClientRect().top;
-    
-          if (targetElementPosition < window.innerHeight * .7) {
-            setIsTargetInViewport(true);
-          } else {
-            setIsTargetInViewport(false);
-          }
+    function handleAddToCart() {
+        const alreadyInCart = cart.find(item => item.furniture.name === furniture.name);
+        if (alreadyInCart) {
+            if (alreadyInCart.quantities <= 9) {
+                fetch(`https://haus-db.onrender.com/cart_items/${alreadyInCart.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        'quantities': alreadyInCart.quantities + 1,
+                    })
+                }).then(r => r.json())
+                .then(data => {
+                    setCart(data.user.cart_items)
+                })
+            }
+        } else {
+            fetch('https://haus-db.onrender.com/cart_items/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    'quantities': 1,
+                    'user_id': user.id,
+                    'furniture_id': furniture.id,
+                })
+            }).then(r => r.json())
+            .then(data => {
+                setUser(data.user)
+                setCart(data.user.cart_items)
+            })
         }
+    }
 
-        window.addEventListener('scroll', handleScroll);
-    
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-      return ( 
-        <div className='inspect-container'>
-            <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
-                <div className={`inspect-furniture-container flex-box ${isTargetInViewport ? 'shrink-container' : ''}`}>
-                    <div className='inspect-furniture'>
-                        <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
-                            {furniture.name}
-                        </h1>
-                        <p className={isTargetInViewport ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
-                    </div>
-
-                    <div className='add-to-cart flex-box'>
-                        <i className='bx bx-plus'></i>
-                        <p>Add to Cart</p>
-                    </div>
+    return ( 
+    <div className='inspect-container'>
+        <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
+            <div className={`inspect-furniture-container flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
+                <div className='inspect-furniture'>
+                    <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
+                        {furniture.name}
+                    </h1>
+                    <p className={isScrollingDown ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
                 </div>
 
-                <div className={`furniture-designer ${isTargetInViewport ? 'hide-designer' : ''}`}>
-                    <p>{furniture.designer}</p>
+                <div className='add-to-cart flex-box' onClick={handleAddToCart} >
+                    <i className='bx bx-plus'></i>
+                    <p>Add to Cart</p>
                 </div>
             </div>
 
-            <div className='inspect-imgs-container flex-box'>
-                <div className='inspect-img-container'>
-                    <img src={furniture.image && furniture.image.angle1} alt='image' />
-                </div>
-
-                <div className='inspect-img-container'>
-                    <img src={furniture.image && furniture.image.angle2} alt='image' />
-                </div>
-
-                <div className='inspect-img-container'>
-                    <img src={furniture.image && furniture.image.angle3} alt='image' />
-                </div>
-            </div>
-
-            <div className='inspect-details-container'>
-                <div className='inspect-detail flex-box'>
-                    <p>Material</p>
-                    <p>{furniture.material}</p>
-                </div>
-
-                <div className='inspect-detail flex-box'>
-                    <p>Dimensions</p>
-                    <p>{furniture.dimensions}</p>
-                </div>
-
-                <div className='inspect-detail flex-box'>
-                    <p>Origin</p>
-                    <p>{furniture.origin}</p>
-                </div>
-            </div>
-
-            <div className='related-furnitures-container'>
-                <h1>Related Furnitures</h1>
-                {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures}/>}
-            </div>
-
-            <div className='subpages-footer-container'>
-                <Footer />
+            <div className={`furniture-designer ${isScrollingDown ? 'hide-designer' : ''}`}>
+                <p>{furniture.designer}</p>
             </div>
         </div>
-      )
+
+        <div className='inspect-imgs-container flex-box'>
+            <div className='inspect-img-container'>
+                <img src={furniture.image && furniture.image.angle1} alt='image' />
+            </div>
+
+            <div className='inspect-img-container'>
+                <img src={furniture.image && furniture.image.angle2} alt='image' />
+            </div>
+
+            <div className='inspect-img-container'>
+                <img src={furniture.image && furniture.image.angle3} alt='image' />
+            </div>
+        </div>
+
+        <div className='inspect-details-container'>
+            <div className='inspect-detail flex-box'>
+                <p>Material</p>
+                <p>{furniture.material}</p>
+            </div>
+
+            <div className='inspect-detail flex-box'>
+                <p>Dimensions</p>
+                <p>{furniture.dimensions}</p>
+            </div>
+
+            <div className='inspect-detail flex-box'>
+                <p>Origin</p>
+                <p>{furniture.origin}</p>
+            </div>
+        </div>
+
+        <div className='related-furnitures-container'>
+            <h1>Related Furnitures</h1>
+            {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures}/>}
+        </div>
+
+        <div className='subpages-footer-container'>
+            <Footer />
+        </div>
+    </div>
+    )
     
       
 }

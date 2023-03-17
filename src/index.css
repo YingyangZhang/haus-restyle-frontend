@@ -13,12 +13,14 @@
   --medium: 500;
   --bold: 700;
 
+  --big-gap-mobile: 5.5rem;
   --gap-mobile: 2rem;
 
   --big-icon-size-mobile: 2.3rem;
   --medium-icon-size-mobile: 1.6rem;
   --small-icon-size-mobile: 1.3rem;
 
+  --bigger-font-size-mobile: 1.75rem;
   --big-font-size-mobile: 1.45rem;
   --medium-font-size-mobile: 1.3rem;
   --semi-small-font-size-mobile: 1.2rem;
@@ -495,7 +497,7 @@ input[type="radio"]  {
 }
 
 .related-furnitures-container {
-  margin-top: 5.5rem;
+  margin-top: var(--big-gap-mobile);
 }
 
 .related-furnitures-container h1 {
@@ -531,7 +533,7 @@ input[type="radio"]  {
 }
 
 .form-header-container h1 {
-  font-size: var(--big-font-size-mobile);
+  font-size: var(--bigger-font-size-mobile);
   font-weight: var(--medium);
 }
 
@@ -591,4 +593,99 @@ input[type="radio"]  {
 .errors-container p {
   font-size: .75rem;
   color: yellow;
+}
+
+/* ---------- Cart ---------- */
+
+.cart-container {
+  flex-direction: column;
+  align-items: stretch;
+  height: 100vh;
+  width: 100%;
+  padding: 10.6rem 1.6rem 0rem 1.6rem;
+}
+
+.cart-headline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--main-padding-mobile);
+}
+
+.cart-headline p {
+  font-size: var(--bigger-font-size-mobile);
+  font-weight: var(--medium);
+}
+
+.cart-cards-container {
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: var(--gap-mobile);
+}
+
+.cart-card {
+  max-width: 500px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.cart-img-container {
+  overflow: hidden;
+  max-height: 150px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.cart-card-info-container {
+  margin-bottom: 1rem;
+}
+
+.cart-card-info-container h1 {
+  display: inline-block;
+  font-size: var(--medium-font-size-mobile);
+  cursor: pointer;
+}
+
+.cart-card-info-container h1:hover {
+  opacity: .6;
+}
+
+.cart-card-info-container p {
+  font-size: var(--small-font-size-mobile);
+}
+
+.cart-card-operations-container p {
+  font-size: var(--small-font-size-mobile);
+}
+
+.quantity-operation,
+.quantity-buttons {
+  column-gap: 10px;
+}
+
+.quantity-buttons i,
+.remove-button {
+  cursor: pointer;
+}
+
+.quantity-buttons i:hover,
+.remove-button:hover {
+  opacity: .6;
+}
+
+.empty-cart-message {
+  font-size: var(--small-font-size-mobile);
+}
+
+.cart-total-container {
+  margin-top: var(--big-gap-mobile);
+}
+
+.cart-total-container .flex-box {
+  margin-top: 1rem;
+}
+
+.cart-total-container .button {
+  margin-top: 2.5rem;
 }

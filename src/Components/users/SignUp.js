@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 
-export default function SignUp({setIsForm, setIsSignUpForm, setUser}) {
+export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
     const [signUpInput, setSignUpInput] = useState({
         username: '',
         password: '',
@@ -37,6 +37,7 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser}) {
                 r.json().then(data => {
                     localStorage.setItem("jwt", data.jwt);
                     setUser(data.user);
+                    setCart(data.user.cart_items);
                     setIsForm(false);
                 })
             } else {
@@ -91,7 +92,7 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser}) {
 
             <div className='errors-container'>
                 {errors && errors.map(error => {
-                    return <p>* {error}</p>
+                    return <p key={error}>* {error}</p>
                 })}
             </div>
 

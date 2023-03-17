@@ -1,7 +1,7 @@
 import { React, useState} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-export default function Header({setIsForm, user, setUser}) {
+export default function Header({setIsForm, user, setUser, cart}) {
     const [isDropDownMenu, setIsDropDownMenu] = useState(false);
     const navigate = useNavigate();
 
@@ -41,7 +41,9 @@ export default function Header({setIsForm, user, setUser}) {
                             :
                             <>
                                 <li onClick={hideDropDown}>
-                                    <NavLink to='/' exact='true'>Cart(1)</NavLink>
+                                    <NavLink to='/cart' exact='true'>
+                                        Cart({cart.length})
+                                    </NavLink>
                                 </li>
 
                                 <li onClick={hideDropDown}>
