@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 
-export default function SignIn({setIsForm, setIsSignUpForm, setUser}) {
+export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
     const [signInInput, setSignInInput] = useState({
         username: '',
         password: '',
@@ -34,6 +34,7 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser}) {
                 r.json().then(data => {
                     localStorage.setItem("jwt", data.jwt);
                     setUser(data.user);
+                    setCart(data.user.cart_items);
                     setIsForm(false);
                 })
             } else {
