@@ -117,7 +117,7 @@ export default function Cart({cart, setCart, isScrolled}) {
                         <p>USD {total.toLocaleString()}</p>
                     </div>
 
-                    <button className='button' > 
+                    <button className='button' onClick={() => navigate('/checkout')}> 
                         <p>Continue to checkout</p>
                         <i className='bx bx-arrow-back' ></i>
                     </button>

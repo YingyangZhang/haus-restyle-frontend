@@ -6,6 +6,7 @@ import Furnitures from './furnitures/Furnitures';
 import Inspect from './furnitures/Inspect';
 import Forms from './users/Forms';
 import Cart from './users/Cart';
+import Checkout from './users/Checkout';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -77,6 +78,10 @@ function App() {
 
         <Route path='/cart' 
                element={<Cart cart={cart} setCart={setCart} isScrolled={isScrolled} />} >
+        </Route>
+
+        <Route path='/checkout' 
+               element={<Checkout cart={cart} setCart={setCart} user={user} setUser={setUser} isScrolled={isScrolled} />} >
         </Route>
       </Routes>
     </div>
