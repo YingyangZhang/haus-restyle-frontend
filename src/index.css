@@ -24,6 +24,7 @@
   --big-font-size-mobile: 1.45rem;
   --medium-font-size-mobile: 1.3rem;
   --semi-small-font-size-mobile: 1.2rem;
+  --regular-font-size-mobile : 1rem;
   --small-font-size-mobile: .9rem;
 
   --home-padding-mobile: 0 1.6rem;
@@ -644,6 +645,7 @@ input[type="radio"]  {
 .cart-card-info-container h1 {
   display: inline-block;
   font-size: var(--medium-font-size-mobile);
+  font-weight: var(--medium);
   cursor: pointer;
 }
 
@@ -686,6 +688,101 @@ input[type="radio"]  {
   margin-top: 1rem;
 }
 
+.cart-total-container .flex-box p {
+  font-size: var(--small-font-size-mobile);
+}
+
 .cart-total-container .button {
   margin-top: 2.5rem;
+}
+
+/* ---------- Checkout ---------- */
+
+.checkout-container {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 7.2rem 1.6rem 0rem 1.6rem;
+  height: 100vh;
+  width: 100%;
+}
+
+.checkout-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 6rem 0 1.2rem 0;
+  z-index: 99;
+}
+
+.checkout-order-container {
+  max-width: 500px;
+}
+
+.checkout-headline {
+  font-size: var(--bigger-font-size-mobile);
+  font-weight: var(--medium);
+  margin-bottom: var(--gap-mobile);
+}
+
+.checkout-cards-container {
+  margin-bottom: var(--gap-mobile)
+}
+
+.checkout-card-container {
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+
+.checkout-card-container h1,
+.checkout-card-container p {
+  font-size: var(--small-font-size-mobile);
+}
+
+.checkout-card-container h1 {
+  line-height: .9rem;
+}
+
+.checkout-card {
+  align-items: flex-start;
+  column-gap: 10px;
+}
+
+.checkout-img-container {
+  width: 110px;
+  overflow: hidden;
+}
+
+.checkout-summary {
+  margin-bottom: var(--gap-mobile);
+}
+
+.checkout-summary p {
+  font-size: var(--small-font-size-mobile);
+}
+
+.checkout-summary .flex-box {
+  margin-top: 1rem;
+}
+
+.checkout-total .flex-box p {
+  font-size: var(--semi-small-font-size-mobile);
+  font-weight: var(--medium);
+}
+
+.checkout-form {
+  position: static;
+  padding: 0;
+  top: 0;
+  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, 0);
+  margin-top: 4rem;
+  z-index: 1;
+}
+
+.checkout-form .form-items-group {
+  flex-direction: row;
+  justify-content: space-between;
 }
