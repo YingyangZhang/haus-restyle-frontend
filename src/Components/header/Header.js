@@ -47,7 +47,7 @@ export default function Header({setIsForm, user, setUser, cart}) {
                                 </li>
 
                                 <li onClick={hideDropDown}>
-                                    <NavLink to='/' exact='true'>
+                                    <NavLink to='/profile' exact='true'>
                                         {user.username && capitalizeString(user.username)}
                                     </NavLink>
                                 </li>

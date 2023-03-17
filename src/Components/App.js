@@ -7,6 +7,7 @@ import Inspect from './furnitures/Inspect';
 import Forms from './users/Forms';
 import Cart from './users/Cart';
 import Checkout from './users/Checkout';
+import Profile from './users/Profile';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -82,6 +83,10 @@ function App() {
 
         <Route path='/checkout' 
                element={<Checkout cart={cart} setCart={setCart} user={user} setUser={setUser} isScrolled={isScrolled} />} >
+        </Route>
+
+        <Route path='/profile' 
+               element={<Profile user={user} isScrolled={isScrolled} />} >
         </Route>
       </Routes>
     </div>
