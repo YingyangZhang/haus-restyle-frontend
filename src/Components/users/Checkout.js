@@ -46,7 +46,7 @@ export default function Checkout({cart, setCart, isScrolled, user, setUser}) {
 
     return (
         <div className='checkout-container flex-box'>
-            <div className={`checkout-background grey-background ${isScrolled ? 'add-dropshadow' : ''}`}></div>
+            <div className={`empty-background grey-background ${isScrolled ? 'add-dropshadow' : ''}`}></div>
 
             <div className='checkout'>
             {cart.length !== 0 &&
