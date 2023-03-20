@@ -1,9 +1,24 @@
-import { React, useState} from "react";
+import { React, useState, useEffect, useRef} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Header({setIsForm, user, setUser, cart}) {
     const [isDropDownMenu, setIsDropDownMenu] = useState(false);
     const navigate = useNavigate();
+    let dropDownRef = useRef();
+
+    useEffect(() => {
+        let handler = e => {
+            if(!dropDownRef.current.contains(e.target)) {
+                setIsDropDownMenu(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    })
 
     function hideDropDown() {
         setIsDropDownMenu(false)
@@ -30,7 +45,7 @@ export default function Header({setIsForm, user, setUser, cart}) {
             <div className='nav-container flex-box'>
                 <NavLink to='/' exact='true' className='header-logo'>HAUS</NavLink>
 
-                <div className={`dropdown-menu-container flex-box grey-background ${isDropDownMenu ? 'show-dropdown' : ''}`}>
+                <div className={`dropdown-menu-container flex-box grey-background ${isDropDownMenu ? 'show-dropdown' : ''}`} ref={dropDownRef}>
                     <ul className='dropdown-menu flex-box'>
                         <li onClick={hideDropDown}><NavLink to='/furnitures' exact='true'>Furnitures</NavLink></li>
 

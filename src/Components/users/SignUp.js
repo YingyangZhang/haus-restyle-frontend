@@ -1,6 +1,8 @@
 import { React, useState } from "react";
+import LoadingScreen from "../loading/LoadingScreen";
 
 export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
+    const [isLoading, setIsLoading] = useState(false);
     const [signUpInput, setSignUpInput] = useState({
         username: '',
         password: '',
@@ -23,8 +25,10 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
     function handleSignUp(e) {
         e.preventDefault();
+
+        setIsLoading(true);
         
-        fetch('https://haus-db.onrender.com/users',{
+        fetch('http://127.0.0.1:3000/users',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,6 +39,7 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
         }).then(r => {
             if (r.ok) {
                 r.json().then(data => {
+                    setIsLoading(false);
                     localStorage.setItem("jwt", data.jwt);
                     setUser(data.user);
                     setCart(data.user.cart_items);
@@ -42,6 +47,7 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
                 })
             } else {
                 r.json().then(errors => {
+                    setIsLoading(false);
                     console.log(errors);
                     setErrors(errors.errors)
                 })
@@ -51,6 +57,8 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
     return (
         <form className='form-container grey-background' onSubmit={handleSignUp}>
+            {isLoading && <LoadingScreen />}
+
             <div className='form-header-container flex-box'>
                 <h1>Sign Up</h1>
                 <i className='bx bx-x' onClick={() => setIsForm(false)}></i>

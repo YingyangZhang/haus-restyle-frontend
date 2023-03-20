@@ -14,7 +14,8 @@ export default function Checkout({cart, setCart, isScrolled, user, setUser}) {
 
     function handleClick(e) {
         e.preventDefault();
-        fetch('https://haus-db.onrender.com/orders', {
+
+        fetch('http://127.0.0.1:3000/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,9 +30,9 @@ export default function Checkout({cart, setCart, isScrolled, user, setUser}) {
         .then(r => r.json())
         .then(data => {
             setUser(data.user);
-            navigate('/');
+            navigate('/thank_you');
             
-            return fetch(`https://haus-db.onrender.com/users/clear_bag/${user.id}`, {
+            return fetch(`http://127.0.0.1:3000/users/clear_bag/${user.id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -40,7 +41,7 @@ export default function Checkout({cart, setCart, isScrolled, user, setUser}) {
         })
         .then(r => r.json())
         .then(data => {
-            setCart(data.user.cart_items)
+            setCart(data.user.cart_items);
         })
     }
 
@@ -158,7 +159,7 @@ export default function Checkout({cart, setCart, isScrolled, user, setUser}) {
 
                         <div className='form-operations-container'>
                             <button className='button' onClick={handleClick}> 
-                                <p>Finish and Pay</p>
+                                <p>Finish and pay</p>
                                 <i className='bx bx-arrow-back' ></i>
                             </button>
                         </div>

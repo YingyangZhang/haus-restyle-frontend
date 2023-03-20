@@ -1,6 +1,8 @@
 import { React, useState } from "react";
+import LoadingScreen from "../loading/LoadingScreen";
 
 export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
+    const [isLoading, setIsLoading] = useState(false);
     const [signInInput, setSignInInput] = useState({
         username: '',
         password: '',
@@ -20,7 +22,9 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
     function handleLogIn(e) {
         e.preventDefault();
 
-        fetch('https://haus-db.onrender.com/login', {
+        setIsLoading(true);
+
+        fetch('http://127.0.0.1:3000/login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -32,6 +36,7 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
         .then(r => {
             if (r.ok) {
                 r.json().then(data => {
+                    setIsLoading(false);
                     localStorage.setItem("jwt", data.jwt);
                     setUser(data.user);
                     setCart(data.user.cart_items);
@@ -39,6 +44,7 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
                 })
             } else {
                 r.json().then((error) => {
+                    setIsLoading(false);
                     setError(error.message);
                 })
             }
@@ -47,6 +53,8 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
     return (
         <form className='form-container grey-background' onSubmit={handleLogIn}>
+            {isLoading && <LoadingScreen />}
+
             <div className='form-header-container flex-box'>
                 <h1>Login</h1>
                 <i className='bx bx-x' onClick={() => setIsForm(false)}></i>
@@ -68,7 +76,7 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
             <div className='form-operations-container flex-box'>
                 <button className='button' type='submit' > 
-                    <p>Sign In</p>
+                    <p>Sign in</p>
                     <i className='bx bx-arrow-back' ></i>
                 </button>
                 

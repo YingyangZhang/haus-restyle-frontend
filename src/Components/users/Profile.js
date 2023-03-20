@@ -25,7 +25,7 @@ export default function Profile({user, isScrolled}) {
                                 {user.orders.length !== 0 ? user.orders.map(order => {
                                     return (
                                         <div className="history-card" key={order.id}>
-                                            <p className='order-date'>2023-02-04</p>
+                                            <p className='order-date'>{order.created_at.slice(0, 10)}</p>
 
                                             <div className='flex-box'>
                                                 <p>Order #</p>

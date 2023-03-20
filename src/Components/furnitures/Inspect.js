@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RelatedFurnitures from "./RelatedFurnitures";
+import LoadingScreen from "../loading/LoadingScreen";
 import Footer from "../footer/Footer";
 
 export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
@@ -8,7 +9,17 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     const [relatedFurnitures, setRelatedFurnitures] = useState([]);
     const { id } = useParams();
     const [isScrollingDown, setIsScrollingDown] = useState(false);
+    const [imagesLoading, setImagesLoading] = useState(true);
+    let count = 0;
     const token = localStorage.getItem("jwt");
+
+    function onLoad() {
+        count++;
+
+        if (count === 3) {
+            setImagesLoading(false);
+        }
+    }
 
     useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +41,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     }, [isScrollingDown]);
 
     useEffect(() => {
-        fetch(`https://haus-db.onrender.com/furnitures/${id}`)
+        fetch(`http://127.0.0.1:3000/furnitures/${id}`)
         .then(r => r.json())
         .then(data => {
             setFurniture(data);
@@ -38,7 +49,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     },[id]);
 
     useEffect(() => {
-        fetch('https://haus-db.onrender.com/furnitures')
+        fetch('http://127.0.0.1:3000/furnitures')
           .then(r => r.json())
           .then(data => {
             const filteredFurnitures = data.filter(relatedFurniture => {
@@ -53,7 +64,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
         const alreadyInCart = cart.find(item => item.furniture.name === furniture.name);
         if (alreadyInCart) {
             if (alreadyInCart.quantities <= 9) {
-                fetch(`https://haus-db.onrender.com/cart_items/${alreadyInCart.id}`, {
+                fetch(`http://127.0.0.1:3000/cart_items/${alreadyInCart.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -68,7 +79,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
                 })
             }
         } else {
-            fetch('https://haus-db.onrender.com/cart_items/', {
+            fetch('http://127.0.0.1:3000/cart_items/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,6 +100,8 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
 
     return ( 
     <div className='inspect-container'>
+        {imagesLoading && <LoadingScreen />}
+
         <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
             <div className={`inspect-furniture-container flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
                 <div className='inspect-furniture'>
@@ -111,15 +124,15 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
 
         <div className='inspect-imgs-container flex-box'>
             <div className='inspect-img-container'>
-                <img src={furniture.image && furniture.image.angle1} alt='image' />
+                <img src={furniture.image && furniture.image.angle1} onLoad={onLoad} alt='image' />
             </div>
 
             <div className='inspect-img-container'>
-                <img src={furniture.image && furniture.image.angle2} alt='image' />
+                <img src={furniture.image && furniture.image.angle2} onLoad={onLoad} alt='image' />
             </div>
 
             <div className='inspect-img-container'>
-                <img src={furniture.image && furniture.image.angle3} alt='image' />
+                <img src={furniture.image && furniture.image.angle3} onLoad={onLoad} alt='image' />
             </div>
         </div>
 
@@ -142,12 +155,14 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
 
         <div className='related-furnitures-container'>
             <h1>Related Furnitures</h1>
-            {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures}/>}
+            {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures} setImagesLoading={setImagesLoading} />}
         </div>
 
         <div className='subpages-footer-container'>
             <Footer />
         </div>
+
+        
     </div>
     )
     

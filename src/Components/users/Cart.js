@@ -11,7 +11,7 @@ export default function Cart({cart, setCart, isScrolled}) {
 
     function handleAdd(id, quantities) {
         if (quantities <= 9) {
-            fetch(`https://haus-db.onrender.com/cart_items/${id}`, {
+            fetch(`http://127.0.0.1:3000/cart_items/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default function Cart({cart, setCart, isScrolled}) {
 
     function handleMinus(id, quantities) {
         if( quantities > 1) {
-            fetch(`https://haus-db.onrender.com/cart_items/${id}`, {
+            fetch(`http://127.0.0.1:3000/cart_items/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export default function Cart({cart, setCart, isScrolled}) {
     }
 
     function handleRemove(id) {
-        fetch(`https://haus-db.onrender.com/cart_items/${id}`, {
+        fetch(`http://127.0.0.1:3000/cart_items/${id}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,

@@ -8,6 +8,8 @@ import Forms from './users/Forms';
 import Cart from './users/Cart';
 import Checkout from './users/Checkout';
 import Profile from './users/Profile';
+import ThankYou from './users/ThankYou';
+import ScrollRestoration from './ScrollRestoration';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
   
   useEffect(() => {
     if (token !== null) {
-    fetch("https://haus-db.onrender.com/me", {
+    fetch("http://127.0.0.1:3000/me", {
       method: "GET",
       headers: {
       Authorization: `Bearer ${token}`,
@@ -46,7 +48,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('https://haus-db.onrender.com/furnitures')
+    fetch('http://127.0.0.1:3000/furnitures')
     .then(r => r.json())
     .then(data => {
         console.log(data);
@@ -59,6 +61,7 @@ function App() {
 
   return (
     <div className="App">
+      <ScrollRestoration />
       <Header setIsForm={setIsForm} user={user} setUser={setUser} cart={cart} />
       {isForm ? <Forms setIsForm={setIsForm} setUser={setUser} setCart={setCart} /> : null}
 
@@ -87,6 +90,10 @@ function App() {
 
         <Route path='/profile' 
                element={<Profile user={user} isScrolled={isScrolled} />} >
+        </Route>
+
+        <Route path='/thank_you' 
+               element={<ThankYou />} >
         </Route>
       </Routes>
     </div>
