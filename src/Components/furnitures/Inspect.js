@@ -1,4 +1,4 @@
-import { lazy, React, useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RelatedFurnitures from "./RelatedFurnitures";
 import LoadingScreen from "../loading/LoadingScreen";
@@ -9,6 +9,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     const [relatedFurnitures, setRelatedFurnitures] = useState([]);
     const { id } = useParams();
     const [isScrollingDown, setIsScrollingDown] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const token = localStorage.getItem("jwt");
 
     useEffect(() => {
@@ -31,11 +32,13 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     }, [isScrollingDown]);
 
     useEffect(() => {
+        setIsLoading(true);
+
         fetch(`http://127.0.0.1:3000/furnitures/${id}`)
         .then(r => r.json())
         .then(data => {
             setFurniture(data);
-            console.log(Object.values(data.image).slice(0, 3));
+            setIsLoading(false);
         })
     },[id]);
 
@@ -91,6 +94,8 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
 
     return ( 
     <div className='inspect-container'>
+        {isLoading && <LoadingScreen />}
+
         <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
             <div className={`inspect-furniture-container flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
                 <div className='inspect-furniture'>
@@ -111,18 +116,20 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
             </div>
         </div>
 
-        {furniture.image && 
+        
             <div className='inspect-imgs-container flex-box'>
-                {Object.values(furniture.image).slice(0, 3).map(src => {
-                    return (
-                        <div className='inspect-img-container' key={src}>
-                            <img src={src} alt='image' loading='lazy' />
-                        </div>
-                    )
-                })}
+                {furniture.image && 
+                    Object.values(furniture.image).slice(0, 3).map(src => {
+                        return (
+                            <div className='inspect-img-container' key={src}>
+                                <img src={src} alt='image' className='img-position'/>
+                            </div>
+                        )
+                    })
+                }
             </div>
-        }
-
+        
+      
         <div className='inspect-details-container'>
             <div className='inspect-detail flex-box'>
                 <p>Material</p>

@@ -19,6 +19,7 @@ function App() {
   const [searchResult, setSearchResult] = useState(furnitures);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isForm, setIsForm] = useState(false);
+  const [isFurnituresLoading, setIsFurnituresLoading] = useState(false);
   const token = localStorage.getItem("jwt");
   
   useEffect(() => {
@@ -48,6 +49,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setIsFurnituresLoading(true);
+
     fetch('http://127.0.0.1:3000/furnitures')
     .then(r => r.json())
     .then(data => {
@@ -56,6 +59,7 @@ function App() {
         a.name > b.name ? -1 : 1);
         setFurnitures(ascendingFurnitures);
         setSearchResult(ascendingFurnitures);
+        setIsFurnituresLoading(false);
     })
   },[])
 
@@ -71,6 +75,7 @@ function App() {
         <Route path='/furnitures' 
                element={<Furnitures furnitures={furnitures} 
                isScrolled={isScrolled}
+               isFurnituresLoading={isFurnituresLoading}
                setFurnitures={setFurnitures} 
                searchResult={searchResult} 
                setSearchResult={setSearchResult}/>} >

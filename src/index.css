@@ -82,6 +82,7 @@ i {
 img {
   max-width: 100%;
   height: auto;
+  background-color: #afafaf;
 }
 
 /* ---------- Reuseable Classes ---------- */
@@ -94,7 +95,6 @@ img {
 
 .img-position {
   display: block;
-  aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center; 
 }
@@ -362,7 +362,6 @@ input[type="radio"]  {
 .card-img-container {
   width: 100%;
   height: 150px;
-  background-color: #000;
   overflow: hidden;
   margin-bottom: var(--smaller-gap-mobile);
 }
@@ -500,6 +499,7 @@ input[type="radio"]  {
 }
 
 .inspect-imgs-container {
+  min-height: 500px;
   flex-direction: column;
   row-gap: var(--regular-gap-mobile);
 }
@@ -895,4 +895,10 @@ input[type="radio"]  {
 
 .thank-you-container .subpages-footer-container {
   margin-top: auto;
+}
+
+
+.skeleton {
+  background-color: #afafaf;
+  min-height: 100px;
 }

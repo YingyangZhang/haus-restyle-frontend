@@ -5,24 +5,14 @@ import Search from "./Search";
 import LoadingScreen from "../loading/LoadingScreen";
 import Footer from "../footer/Footer";
 
-export default function Furnitures({furnitures, setFurnitures, searchResult, setSearchResult, isScrolled}) {
+export default function Furnitures({furnitures, isFurnituresLoading, setFurnitures, searchResult, setSearchResult, isScrolled}) {
     const [selectedCat, setSelectedCat] = useState('All');
     const [isSearch, setIsSearch] = useState(false);
-    const [imagesLoading, setImagesLoading] = useState(true);
-    let count = 0;
     const filteredFurnitures = searchResult.filter(furniture => {
         return selectedCat === "All" ? furniture : furniture.category.category_name === selectedCat;
     });
     
     const navigate = useNavigate();
-    
-    function onLoad() {
-        count++;
-
-        if (count === furnitures.length) {
-            setImagesLoading(false);
-        }
-    }
 
     useEffect(() => {
         const handlePopstate = () => {
@@ -42,7 +32,7 @@ export default function Furnitures({furnitures, setFurnitures, searchResult, set
 
     return (
         <div className='furnitures-container flex-box' id='top'>
-            {imagesLoading && <LoadingScreen />}
+            {isFurnituresLoading && <LoadingScreen />}
 
             <div className={`furnitures-operations-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`} >
                 <div className="cat-selections-container flex-box">
@@ -75,7 +65,7 @@ export default function Furnitures({furnitures, setFurnitures, searchResult, set
                     return (
                         <div className='card' onClick={() => navigate(`/furnitures/${furniture.id}`)} key={furniture.id}>
                             <div className='card-img-container'>
-                                <img src={furniture.image.thumbnail} alt='image' onLoad={onLoad} />
+                                <img src={furniture.image.thumbnail} alt='image' />
                             </div>
                             <div className='card-headline flex-box'>
                                 <p>{furniture.designer}</p>
