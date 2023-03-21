@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function RelatedFurnitures({relatedFurnitures, setImagesLoading}) {
+export default function RelatedFurnitures({relatedFurnitures}) {
     const navigate = useNavigate();
 
     function handleClick(id) {
-        setImagesLoading(true);
         navigate(`/furnitures/${id}`);
     }
 

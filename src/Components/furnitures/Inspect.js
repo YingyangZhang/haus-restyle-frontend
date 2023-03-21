@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { lazy, React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RelatedFurnitures from "./RelatedFurnitures";
 import LoadingScreen from "../loading/LoadingScreen";
@@ -9,35 +9,25 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     const [relatedFurnitures, setRelatedFurnitures] = useState([]);
     const { id } = useParams();
     const [isScrollingDown, setIsScrollingDown] = useState(false);
-    const [imagesLoading, setImagesLoading] = useState(true);
-    let count = 0;
     const token = localStorage.getItem("jwt");
 
-    function onLoad() {
-        count++;
-
-        if (count === 3) {
-            setImagesLoading(false);
-        }
-    }
-
     useEffect(() => {
-    const handleScroll = () => {
-        const scrollPosition = window.pageYOffset;
-        const scrollThreshold = 83;
-        
-        if (scrollPosition > scrollThreshold && !isScrollingDown) {
-            setIsScrollingDown(true);
-        } else if (scrollPosition < scrollThreshold && isScrollingDown) {
-            setIsScrollingDown(false);
-        }
-    };
+        const handleScroll = () => {
+            const scrollPosition = window.pageYOffset;
+            const scrollThreshold = 83;
+            
+            if (scrollPosition > scrollThreshold && !isScrollingDown) {
+                setIsScrollingDown(true);
+            } else if (scrollPosition < scrollThreshold && isScrollingDown) {
+                setIsScrollingDown(false);
+            }
+        };
 
-    window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
 
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, [isScrollingDown]);
 
     useEffect(() => {
@@ -45,6 +35,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
         .then(r => r.json())
         .then(data => {
             setFurniture(data);
+            console.log(Object.values(data.image).slice(0, 3));
         })
     },[id]);
 
@@ -100,8 +91,6 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
 
     return ( 
     <div className='inspect-container'>
-        {imagesLoading && <LoadingScreen />}
-
         <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
             <div className={`inspect-furniture-container flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
                 <div className='inspect-furniture'>
@@ -122,19 +111,17 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
             </div>
         </div>
 
-        <div className='inspect-imgs-container flex-box'>
-            <div className='inspect-img-container'>
-                <img src={furniture.image && furniture.image.angle1} onLoad={onLoad} alt='image' />
+        {furniture.image && 
+            <div className='inspect-imgs-container flex-box'>
+                {Object.values(furniture.image).slice(0, 3).map(src => {
+                    return (
+                        <div className='inspect-img-container' key={src}>
+                            <img src={src} alt='image' loading='lazy' />
+                        </div>
+                    )
+                })}
             </div>
-
-            <div className='inspect-img-container'>
-                <img src={furniture.image && furniture.image.angle2} onLoad={onLoad} alt='image' />
-            </div>
-
-            <div className='inspect-img-container'>
-                <img src={furniture.image && furniture.image.angle3} onLoad={onLoad} alt='image' />
-            </div>
-        </div>
+        }
 
         <div className='inspect-details-container'>
             <div className='inspect-detail flex-box'>
@@ -155,7 +142,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
 
         <div className='related-furnitures-container'>
             <h1>Related Furnitures</h1>
-            {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures} setImagesLoading={setImagesLoading} />}
+            {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures} />}
         </div>
 
         <div className='subpages-footer-container'>
