@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import LoadingScreen from "../loading/LoadingScreen";
+import LoadingScreen from "../Loading/LoadingScreen";
 
 export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
     const [isLoading, setIsLoading] = useState(false);

@@ -2,8 +2,8 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-scroll';
 import Search from "./Search";
-import LoadingScreen from "../loading/LoadingScreen";
-import Footer from "../footer/Footer";
+import LoadingScreen from "../Loading/LoadingScreen";
+import Footer from "../Footer/Footer";
 
 export default function Furnitures({furnitures, isFurnituresLoading, setFurnitures, searchResult, setSearchResult, isScrolled}) {
     const [selectedCat, setSelectedCat] = useState('All');

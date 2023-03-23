@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Footer from "../footer/Footer";
+import Footer from "../Footer/Footer";
 
 export default function Home() {
     const [randomImgIndex, setrandomImgIndex] = useState(randomIndex(0, 2))

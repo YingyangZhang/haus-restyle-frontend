@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../footer/Footer";
+import Footer from "../Footer/Footer";
 
 export default function Checkout({cart, setCart, isScrolled, user, setUser}) {
     const subTotal = cart.reduce((a, c) => {

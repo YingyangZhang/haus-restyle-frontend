@@ -1,14 +1,14 @@
 import '../index.css';
 import { Route, Routes } from "react-router-dom";
-import Header from './header/Header';
-import Home from './home/Home';
-import Furnitures from './furnitures/Furnitures';
-import Inspect from './furnitures/Inspect';
-import Forms from './users/Forms';
-import Cart from './users/Cart';
-import Checkout from './users/Checkout';
-import Profile from './users/Profile';
-import ThankYou from './users/ThankYou';
+import Header from './Header/Header';
+import Home from './Home/Home';
+import Furnitures from './Furnitures/Furnitures';
+import Inspect from './Furnitures/Inspect';
+import Forms from './Users/Forms';
+import Cart from './Users/Cart';
+import Checkout from './Users/Checkout';
+import Profile from './Users/Profile';
+import ThankYou from './Users/ThankYou';
 import ScrollRestoration from './ScrollRestoration';
 import { useState, useEffect } from 'react';
 

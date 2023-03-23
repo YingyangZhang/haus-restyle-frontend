@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RelatedFurnitures from "./RelatedFurnitures";
-import LoadingScreen from "../loading/LoadingScreen";
-import Footer from "../footer/Footer";
+import LoadingScreen from "../Loading/LoadingScreen";
+import Footer from "../Footer/Footer";
 
 export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     const [furniture, setFurniture] = useState({});
