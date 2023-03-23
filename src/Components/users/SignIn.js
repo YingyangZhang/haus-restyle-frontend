@@ -24,7 +24,7 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
         setIsLoading(true);
 
-        fetch('http://127.0.0.1:3000/login', {
+        fetch('https://haus-db.onrender.com/login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -57,16 +57,19 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
             <div className='form-header-container flex-box'>
                 <h1>Login</h1>
+
                 <i className='bx bx-x' onClick={() => setIsForm(false)}></i>
             </div>
 
             <div className='form-item-container'>
                 <p>Username</p>
+
                 <input type='text' placeholder='Enter username' name='username' onChange={handleInput} />
             </div>
 
             <div className='form-item-container'>
                 <p>Password</p>
+                
                 <input type='password' placeholder='Enter password' name='password' onChange={handleInput} />
             </div>
             
@@ -74,13 +77,13 @@ export default function SignIn({setIsForm, setIsSignUpForm, setUser, setCart}) {
                 {error ? <p>* {error}</p> : null}
             </div>
 
-            <div className='form-operations-container flex-box'>
+            <div className='form-buttons-container flex-box'>
                 <button className='button' type='submit' > 
                     <p>Sign in</p>
                     <i className='bx bx-arrow-back' ></i>
                 </button>
                 
-                <p className="back-to-signin" onClick={() => setIsSignUpForm(true)}>Sign Up</p>
+                <p className="form-toggle-button" onClick={() => setIsSignUpForm(true)}>Sign Up</p>
             </div>
         </form>
     )

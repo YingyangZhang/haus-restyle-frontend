@@ -34,7 +34,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     useEffect(() => {
         setIsLoading(true);
 
-        fetch(`http://127.0.0.1:3000/furnitures/${id}`)
+        fetch(`https://haus-db.onrender.com/furnitures/${id}`)
         .then(r => r.json())
         .then(data => {
             setFurniture(data);
@@ -43,7 +43,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     },[id]);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:3000/furnitures')
+        fetch('https://haus-db.onrender.com/furnitures')
           .then(r => r.json())
           .then(data => {
             const filteredFurnitures = data.filter(relatedFurniture => {
@@ -58,7 +58,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
         const alreadyInCart = cart.find(item => item.furniture.name === furniture.name);
         if (alreadyInCart) {
             if (alreadyInCart.quantities <= 9) {
-                fetch(`http://127.0.0.1:3000/cart_items/${alreadyInCart.id}`, {
+                fetch(`https://haus-db.onrender.com/cart_items/${alreadyInCart.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
                 })
             }
         } else {
-            fetch('http://127.0.0.1:3000/cart_items/', {
+            fetch('https://haus-db.onrender.com/cart_items/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,59 +96,63 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     <div className='inspect-container'>
         {isLoading && <LoadingScreen />}
 
-        <div className={`inspect-info-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
-            <div className={`inspect-furniture-container flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
+        <div className={`inspect-header-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
+            <div className={`inspect-header-left flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
                 <div className='inspect-furniture'>
                     <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
                         {furniture.name}
                     </h1>
+
                     <p className={isScrollingDown ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
                 </div>
 
-                <div className='add-to-cart flex-box' onClick={handleAddToCart} >
+                <div className='add-to-cart-button flex-box' onClick={handleAddToCart} >
                     <i className='bx bx-plus'></i>
+
                     <p>Add to Cart</p>
                 </div>
             </div>
 
-            <div className={`furniture-designer ${isScrollingDown ? 'hide-designer' : ''}`}>
+            <div className={`inspect-header-right ${isScrollingDown ? 'hide-designer' : ''}`}>
                 <p>{furniture.designer}</p>
             </div>
         </div>
 
+        <div className='inspect-imgs-container flex-box'>
+            {furniture.image && 
+                Object.values(furniture.image).slice(0, 3).map(src => {
+                    return (
+                        <div className='inspect-img-container' key={src}>
+                            <img src={src} alt='image' className='fixed-img'/>
+                        </div>
+                    )
+                })
+            }
+        </div>
         
-            <div className='inspect-imgs-container flex-box'>
-                {furniture.image && 
-                    Object.values(furniture.image).slice(0, 3).map(src => {
-                        return (
-                            <div className='inspect-img-container' key={src}>
-                                <img src={src} alt='image' className='img-position'/>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        
-      
         <div className='inspect-details-container'>
             <div className='inspect-detail flex-box'>
                 <p>Material</p>
+
                 <p>{furniture.material}</p>
             </div>
 
             <div className='inspect-detail flex-box'>
                 <p>Dimensions</p>
+
                 <p>{furniture.dimensions}</p>
             </div>
 
             <div className='inspect-detail flex-box'>
                 <p>Origin</p>
+
                 <p>{furniture.origin}</p>
             </div>
         </div>
 
         <div className='related-furnitures-container'>
             <h1>Related Furnitures</h1>
+            
             {relatedFurnitures && <RelatedFurnitures relatedFurnitures={relatedFurnitures} />}
         </div>
 

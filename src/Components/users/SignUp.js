@@ -28,7 +28,7 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
 
         setIsLoading(true);
         
-        fetch('http://127.0.0.1:3000/users',{
+        fetch('https://haus-db.onrender.com/users',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -104,13 +104,13 @@ export default function SignUp({setIsForm, setIsSignUpForm, setUser, setCart}) {
                 })}
             </div>
 
-            <div className='form-operations-container flex-box'>
+            <div className='form-buttons-container flex-box'>
                 <button className='button' type='submit' > 
                     <p>Confirm</p>
                     <i className='bx bx-arrow-back' ></i>
                 </button>
                 
-                <p className="back-to-signin" onClick={() => setIsSignUpForm(false)}>Go Back</p>
+                <p className="form-toggle-button" onClick={() => setIsSignUpForm(false)}>Go Back</p>
             </div>
         </form>
     )

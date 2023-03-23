@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../footer/Footer";
 
 export default function Home() {
@@ -17,6 +17,7 @@ export default function Home() {
         <div className='home-container' style={homeBackground}>
             <div className='home-headline-container'>
                 <h1>'Make a Statement'</h1>
+                
                 <p>Experience the art of furniture.</p>
             </div>
             

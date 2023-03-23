@@ -14,11 +14,12 @@ export default function RelatedFurnitures({relatedFurnitures}) {
                 return (
                     <div className='cards' key={relatedFurniture.id} onClick={() => handleClick(relatedFurniture.id)}>
                         <div className='card-img-container'>
-                            <img src={relatedFurniture.image.thumbnail} alt='image'/>
+                            <img src={relatedFurniture.image.thumbnail} alt='image' className='fixed-img'/>
                         </div>
 
-                        <div className='card-headline flex-box'>
+                        <div className='card-info-container flex-box'>
                             <p>{relatedFurniture.designer}</p>
+
                             <p>{relatedFurniture.name}</p>
                         </div>
                     </div>

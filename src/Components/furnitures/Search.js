@@ -11,13 +11,18 @@ export default function Search({setIsSearch, furnitures, setSearchResult}) {
 
     function handleSubmit(e) {
         e.preventDefault();
+
         setIsSearch(false);
+
         const results = furnitures.filter(furniture => {
             return furniture.name.toLowerCase().replace(/\s/g, '').includes(input.toLowerCase().replace(/\s/g, '')) || 
                 furniture.designer.toLowerCase().replace(/\s/g, '').includes(input.toLowerCase().replace(/\s/g, ''));
         });
+
         navigate(`/furnitures?q=${input}`);
+
         setSearchResult(results);
+        
         setInput('');
     }
 

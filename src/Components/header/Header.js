@@ -45,7 +45,7 @@ export default function Header({setIsForm, user, setUser, cart}) {
             <div className='nav-container flex-box'>
                 <NavLink to='/' exact='true' className='header-logo'>HAUS</NavLink>
 
-                <div className={`dropdown-menu-container flex-box grey-background ${isDropDownMenu ? 'show-dropdown' : ''}`} ref={dropDownRef}>
+                <div className={`dropdown-container flex-box grey-background ${isDropDownMenu ? 'show-dropdown' : ''}`} ref={dropDownRef}>
                     <ul className='dropdown-menu flex-box'>
                         <li onClick={hideDropDown}><NavLink to='/furnitures' exact='true'>Furnitures</NavLink></li>
 
@@ -61,10 +61,12 @@ export default function Header({setIsForm, user, setUser, cart}) {
                                     </NavLink>
                                 </li>
 
-                                <li onClick={hideDropDown}>
+                                <li onClick={hideDropDown} className='dropdown-menu-profile'>
                                     <NavLink to='/profile' exact='true'>
                                         {user.username && capitalizeString(user.username)}
                                     </NavLink>
+
+                                    <i className='bx bx-log-out' onClick={handleLogOut} ></i> 
                                 </li>
                             </>
                         }

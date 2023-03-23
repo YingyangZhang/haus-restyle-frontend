@@ -11,7 +11,7 @@ export default function Cart({cart, setCart, isScrolled}) {
 
     function handleAdd(id, quantities) {
         if (quantities <= 9) {
-            fetch(`http://127.0.0.1:3000/cart_items/${id}`, {
+            fetch(`https://haus-db.onrender.com/cart_items/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default function Cart({cart, setCart, isScrolled}) {
 
     function handleMinus(id, quantities) {
         if( quantities > 1) {
-            fetch(`http://127.0.0.1:3000/cart_items/${id}`, {
+            fetch(`https://haus-db.onrender.com/cart_items/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export default function Cart({cart, setCart, isScrolled}) {
     }
 
     function handleRemove(id) {
-        fetch(`http://127.0.0.1:3000/cart_items/${id}`, {
+        fetch(`https://haus-db.onrender.com/cart_items/${id}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -66,47 +66,48 @@ export default function Cart({cart, setCart, isScrolled}) {
    
     return (
         <div className='cart-container flex-box'>
-            <div className={`cart-headline grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
-                <p>Order Summary</p>
-            </div>
+            <div className={`empty-background grey-background ${isScrolled ? 'add-dropshadow' : ''}`}></div>    
 
             {cart.length !== 0 ?
-            <div className='cart-summary-container'>
+            <div className='cart flex-box'>
                 <div className='cart-cards-container flex-box'>
+                    <h1>Order Summary</h1>
                     {cart.map(item => {
                         return (
                             <div className='cart-card flex-box' key={item.id}>
                                 <div className='cart-img-container' onClick={() => navigate(`/furnitures/${item.furniture.id}`)}>
-                                    <img src={item.furniture.image.thumbnail} alt='image' />
+                                    <img src={item.furniture.image.thumbnail} alt='image' className="fixed-img" />
                                 </div>
 
-                                <div className='cart-card-info-container'>
-                                    <h1 onClick={() => navigate(`/furnitures/${item.furniture.id}`)}>
-                                        {item.furniture.name}
-                                    </h1>
-                                    <p>USD {item.furniture.price.toLocaleString()}</p>
-                                </div>
-
-                                <div className='cart-card-operations-container flex-box'>
-                                    <div className='quantity-operation flex-box'>
-                                        <p>Quantity</p>
-
-                                        <div className='quantity-buttons flex-box'>
-                                            <i className='bx bx-plus' onClick={() => handleAdd(item.id, item.quantities)}></i>
-                                            <p>{item.quantities}</p>
-                                            <i className='bx bx-minus' onClick={() => handleMinus(item.id, item.quantities)}></i>
-                                        </div>
+                                <div className="cart-card-info flex-box">
+                                    <div className='cart-card-info-container'>
+                                        <h1 onClick={() => navigate(`/furnitures/${item.furniture.id}`)}>
+                                            {item.furniture.name}
+                                        </h1>
+                                        <p>USD {item.furniture.price.toLocaleString()}</p>
                                     </div>
 
-                                <div className='remove-button' onClick={() => handleRemove(item.id)}>
-                                    <p>Remove Furniture</p>
+                                    <div className='cart-card-operations-container flex-box'>
+                                        <div className='quantity-operation flex-box'>
+                                            <p>Quantity</p>
+
+                                            <div className='quantity-buttons flex-box'>
+                                                <i className='bx bx-plus' onClick={() => handleAdd(item.id, item.quantities)}></i>
+                                                <p>{item.quantities}</p>
+                                                <i className='bx bx-minus' onClick={() => handleMinus(item.id, item.quantities)}></i>
+                                            </div>
+                                        </div>
+
+                                    <div className='remove-button' onClick={() => handleRemove(item.id)}>
+                                        <p>Remove Furniture</p>
+                                    </div>
                                 </div>
                             </div>
                         </div> 
                     )})}   
                 </div>
                     
-                <div className='cart-total-container'>
+                <div className='cart-total-container for-small-screen'>
                     <div className="flex-box">
                         <p>Delivery</p>
                         <p>Excluding delivery</p>

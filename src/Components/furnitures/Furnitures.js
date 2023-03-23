@@ -31,28 +31,32 @@ export default function Furnitures({furnitures, isFurnituresLoading, setFurnitur
     }
 
     return (
-        <div className='furnitures-container flex-box' id='top'>
+        <div className='furnitures-container flex-box' id='back-to-top'>
             {isFurnituresLoading && <LoadingScreen />}
 
-            <div className={`furnitures-operations-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`} >
-                <div className="cat-selections-container flex-box">
-                    <label className="cat-selection">
+            <div className={`furnitures-menu-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`} >
+                <div className="category-container flex-box">
+                    <label className="category-selection">
                         <input type="radio" name='selection' value="All" defaultChecked={true} onChange={handleCat} />
+
                         <span>All</span>
                     </label>
 
-                    <label className="cat-selection">
+                    <label className="category-selection">
                         <input type="radio" name='selection' value="Chair" onChange={handleCat} />
+
                         <span>Chair</span>
                     </label>
 
-                    <label className="cat-selection">
+                    <label className="category-selection">
                         <input type="radio" name='selection' value="Table" onChange={handleCat} />
+
                         <span>Table</span>
                     </label>
 
-                    <label className="cat-selection">
+                    <label className="category-selection">
                         <input type="radio" name='selection' value="Sofa" onChange={handleCat} />
+
                         <span>Sofa</span>
                     </label>
                 </div>
@@ -65,10 +69,12 @@ export default function Furnitures({furnitures, isFurnituresLoading, setFurnitur
                     return (
                         <div className='card' onClick={() => navigate(`/furnitures/${furniture.id}`)} key={furniture.id}>
                             <div className='card-img-container'>
-                                <img src={furniture.image.thumbnail} alt='image' />
+                                <img src={furniture.image.thumbnail} alt='image' className='fixed-img' />
                             </div>
-                            <div className='card-headline flex-box'>
+                            
+                            <div className='card-info-container flex-box'>
                                 <p>{furniture.designer}</p>
+
                                 <p>{furniture.name}</p>
                             </div>
                         </div>
@@ -76,11 +82,11 @@ export default function Furnitures({furnitures, isFurnituresLoading, setFurnitur
                 })}
             </div>
 
-            <Link to="top"
+            <Link to="back-to-top"
                 smooth={true}
                 duration={500}
                 offset={-100} 
-                className='back-to-top-container'>
+                className='back-to-top-button'>
                 <i className='bx bx-chevron-up'></i>
             </Link>
 
