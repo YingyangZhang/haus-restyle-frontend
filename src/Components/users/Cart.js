@@ -65,7 +65,7 @@ export default function Cart({cart, setCart, isScrolled}) {
     }
    
     return (
-        <div className='cart-container flex-box'>
+        <div className='cart-container flex-box container'>
             <div className={`empty-background grey-background ${isScrolled ? 'add-dropshadow' : ''}`}></div>    
 
             {cart.length !== 0 ?

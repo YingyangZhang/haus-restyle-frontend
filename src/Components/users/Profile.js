@@ -6,7 +6,7 @@ export default function Profile({user, isScrolled}) {
     const navigate = useNavigate();
 
     return (
-        <div className='profile-container flex-box'>
+        <div className='profile-container flex-box container'>
             <div className={`empty-background grey-background ${isScrolled ? 'add-dropshadow' : ''}`}></div>
 
             <div className='profile'>

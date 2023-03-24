@@ -31,37 +31,39 @@ export default function Furnitures({furnitures, isFurnituresLoading, setFurnitur
     }
 
     return (
-        <div className='furnitures-container flex-box' id='back-to-top'>
+        <div className='furnitures-container flex-box container' id='back-to-top'>
             {isFurnituresLoading && <LoadingScreen />}
 
-            <div className={`furnitures-menu-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`} >
-                <div className="category-container flex-box">
-                    <label className="category-selection">
-                        <input type="radio" name='selection' value="All" defaultChecked={true} onChange={handleCat} />
+            <div className={`furnitures-menu-container ${isScrolled ? 'add-dropshadow' : ''}`} >
+                <div className="furnitures-menu flex-box">
+                    <div className="category-container flex-box">
+                        <label className="category-selection">
+                            <input type="radio" name='selection' value="All" defaultChecked={true} onChange={handleCat} />
 
-                        <span>All</span>
-                    </label>
+                            <span>All</span>
+                        </label>
 
-                    <label className="category-selection">
-                        <input type="radio" name='selection' value="Chair" onChange={handleCat} />
+                        <label className="category-selection">
+                            <input type="radio" name='selection' value="Chair" onChange={handleCat} />
 
-                        <span>Chair</span>
-                    </label>
+                            <span>Chair</span>
+                        </label>
 
-                    <label className="category-selection">
-                        <input type="radio" name='selection' value="Table" onChange={handleCat} />
+                        <label className="category-selection">
+                            <input type="radio" name='selection' value="Table" onChange={handleCat} />
 
-                        <span>Table</span>
-                    </label>
+                            <span>Table</span>
+                        </label>
 
-                    <label className="category-selection">
-                        <input type="radio" name='selection' value="Sofa" onChange={handleCat} />
+                        <label className="category-selection">
+                            <input type="radio" name='selection' value="Sofa" onChange={handleCat} />
 
-                        <span>Sofa</span>
-                    </label>
+                            <span>Sofa</span>
+                        </label>
+                    </div>
+
+                    <i className='bx bx-search' onClick={() => setIsSearch(true)}></i>
                 </div>
-
-                <i className='bx bx-search' onClick={() => setIsSearch(true)}></i>
             </div>
 
             <div className='cards-container'>

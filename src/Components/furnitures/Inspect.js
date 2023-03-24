@@ -4,7 +4,7 @@ import RelatedFurnitures from "./RelatedFurnitures";
 import LoadingScreen from "../Loading/LoadingScreen";
 import Footer from "../Footer/Footer";
 
-export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
+export default function Inspect({isScrolled, user, setUser, cart, setCart, setIsForm}) {
     const [furniture, setFurniture] = useState({});
     const [relatedFurnitures, setRelatedFurnitures] = useState([]);
     const { id } = useParams();
@@ -55,6 +55,8 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     }, [furniture.category]);
 
     function handleAddToCart() {
+        if (user.length === 0) return setIsForm(true);
+            
         const alreadyInCart = cart.find(item => item.furniture.name === furniture.name);
         if (alreadyInCart) {
             if (alreadyInCart.quantities <= 9) {
@@ -93,28 +95,30 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart}) {
     }
 
     return ( 
-    <div className='inspect-container'>
+    <div className='inspect-container container'>
         {isLoading && <LoadingScreen />}
 
-        <div className={`inspect-header-container flex-box grey-background ${isScrolled ? 'add-dropshadow' : ''}`}>
-            <div className={`inspect-header-left flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
-                <div className='inspect-furniture'>
-                    <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
-                        {furniture.name}
-                    </h1>
+        <div className={`inspect-header-container ${isScrolled ? 'add-dropshadow' : ''}`}>
+            <div className="inspect-header flex-box">
+                <div className={`inspect-header-left flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
+                    <div className='inspect-furniture'>
+                        <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
+                            {furniture.name}
+                        </h1>
 
-                    <p className={isScrollingDown ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
+                        <p className={isScrollingDown ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
+                    </div>
+
+                    <div className='add-to-cart-button flex-box' onClick={handleAddToCart} >
+                        <i className='bx bx-plus'></i>
+
+                        <p>Add to Cart</p>
+                    </div>
                 </div>
 
-                <div className='add-to-cart-button flex-box' onClick={handleAddToCart} >
-                    <i className='bx bx-plus'></i>
-
-                    <p>Add to Cart</p>
+                <div className={`inspect-header-right ${isScrollingDown ? 'hide-designer' : ''}`}>
+                    <p>{furniture.designer}</p>
                 </div>
-            </div>
-
-            <div className={`inspect-header-right ${isScrollingDown ? 'hide-designer' : ''}`}>
-                <p>{furniture.designer}</p>
             </div>
         </div>
 
