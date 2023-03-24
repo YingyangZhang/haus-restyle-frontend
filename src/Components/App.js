@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Header from './Header/Header';
 import Home from './Home/Home';
 import Furnitures from './Furnitures/Furnitures';
+import SearchResult from './Furnitures/SearchResult';
 import Inspect from './Furnitures/Inspect';
 import Forms from './Users/Forms';
 import Cart from './Users/Cart';
@@ -99,9 +100,19 @@ function App() {
                setSearchResult={setSearchResult}/>} >
         </Route>
 
+        <Route path='/search_result' 
+               element={<SearchResult furnitures={furnitures} 
+               isScrolled={isScrolled}
+               isFurnituresLoading={isFurnituresLoading}
+               setFurnitures={setFurnitures} 
+               searchResult={searchResult} 
+               setSearchResult={setSearchResult}/>} >
+        </Route>
+
         <Route path='/furnitures/:id' 
                element={<Inspect isScrolled={isScrolled} user={user} setUser={setUser} cart={cart} setCart={setCart} setIsForm={setIsForm} />} >
         </Route>
+        
 
         <Route path='/cart' 
                element={<Cart cart={cart} setCart={setCart} isScrolled={isScrolled} />} >

@@ -5,26 +5,26 @@ import Search from "./Search";
 import LoadingScreen from "../Loading/LoadingScreen";
 import Footer from "../Footer/Footer";
 
-export default function Furnitures({furnitures, isFurnituresLoading, setFurnitures, searchResult, setSearchResult, isScrolled}) {
+export default function SearchResult({furnitures, isFurnituresLoading, setFurnitures, searchResult, setSearchResult, isScrolled}) {
     const [selectedCat, setSelectedCat] = useState('All');
     const [isSearch, setIsSearch] = useState(false);
-    const filteredFurnitures = furnitures.filter(furniture => {
+    const filteredFurnitures = searchResult.filter(furniture => {
         return selectedCat === "All" ? furniture : furniture.category.category_name === selectedCat;
     });
     
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const handlePopstate = () => {
-          window.location.reload();
-        };
+    // useEffect(() => {
+    //     const handlePopstate = () => {
+    //       window.location.reload();
+    //     };
       
-        window.addEventListener('popstate', handlePopstate);
+    //     window.addEventListener('popstate', handlePopstate);
       
-        return () => {
-          window.removeEventListener('popstate', handlePopstate);
-        };
-    }, []);
+    //     return () => {
+    //       window.removeEventListener('popstate', handlePopstate);
+    //     };
+    // }, []);
 
     function handleCat(e) {
         setSelectedCat(e.target.value);
