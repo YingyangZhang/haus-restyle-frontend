@@ -31,10 +31,11 @@ export default function SearchResult({furnitures, isFurnituresLoading, setFurnit
     }
 
     return (
-        <div className='furnitures-container flex-box container' id='back-to-top'>
+        <div className='furnitures-container search-result-container flex-box container' id='back-to-top'>
             {isFurnituresLoading && <LoadingScreen />}
 
-            <div className={`furnitures-menu-container ${isScrolled ? 'add-dropshadow' : ''}`} >
+        <div className="search-result">
+            <div className='furnitures-menu-container' >
                 <div className="furnitures-menu flex-box">
                     <div className="category-container flex-box">
                         <label className="category-selection">
@@ -62,7 +63,9 @@ export default function SearchResult({furnitures, isFurnituresLoading, setFurnit
                         </label>
                     </div>
 
-                    <i className='bx bx-search' onClick={() => setIsSearch(true)}></i>
+                    <div className="search-button">
+                        <i className='bx bx-search' onClick={() => setIsSearch(true)}></i>
+                    </div>
                 </div>
             </div>
 
@@ -83,6 +86,7 @@ export default function SearchResult({furnitures, isFurnituresLoading, setFurnit
                     )
                 })}
             </div>
+        </div>
 
             <Link to="back-to-top"
                 smooth={true}

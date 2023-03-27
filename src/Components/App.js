@@ -25,9 +25,9 @@ function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const location = useLocation();
   const token = localStorage.getItem("jwt");
-  const whiteText = {
-    color: isHome ? '#fff' : ''
-  };
+  const transparentBackground = {
+    backgroundColor: isHome ? 'transparent' : '#fff',
+  }
   
   useEffect(() => {
     if (token !== null) {
@@ -85,7 +85,7 @@ function App() {
   return (
     <div className="App">
       <ScrollRestoration />
-      <Header setIsForm={setIsForm} user={user} setUser={setUser} cart={cart} whiteText={whiteText} screenWidth={screenWidth}/>
+      <Header setIsForm={setIsForm} user={user} setUser={setUser} cart={cart} isHome={isHome} screenWidth={screenWidth} transparentBackground={transparentBackground}/>
       {isForm ? <Forms setIsForm={setIsForm} setUser={setUser} setCart={setCart} /> : null}
 
       <Routes>
@@ -93,10 +93,15 @@ function App() {
 
         <Route path='/furnitures' 
                element={<Furnitures furnitures={furnitures} 
+               user={user}
+               setUser={setUser}
+               setIsForm={setIsForm}
                isScrolled={isScrolled}
                isFurnituresLoading={isFurnituresLoading}
                setFurnitures={setFurnitures} 
                searchResult={searchResult} 
+               cart={cart}
+               setCart={setCart}
                setSearchResult={setSearchResult}/>} >
         </Route>
 
@@ -110,20 +115,20 @@ function App() {
         </Route>
 
         <Route path='/furnitures/:id' 
-               element={<Inspect isScrolled={isScrolled} user={user} setUser={setUser} cart={cart} setCart={setCart} setIsForm={setIsForm} />} >
+               element={<Inspect user={user} setUser={setUser} cart={cart} setCart={setCart} setIsForm={setIsForm} />} >
         </Route>
         
 
         <Route path='/cart' 
-               element={<Cart cart={cart} setCart={setCart} isScrolled={isScrolled} />} >
+               element={<Cart user={user} cart={cart} setCart={setCart} />} >
         </Route>
 
         <Route path='/checkout' 
-               element={<Checkout cart={cart} setCart={setCart} user={user} setUser={setUser} isScrolled={isScrolled} />} >
+               element={<Checkout cart={cart} setCart={setCart} user={user} setUser={setUser} />} >
         </Route>
 
         <Route path='/profile' 
-               element={<Profile user={user} isScrolled={isScrolled} />} >
+               element={<Profile user={user} setUser={setUser} />} >
         </Route>
 
         <Route path='/thank_you' 

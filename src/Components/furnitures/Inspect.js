@@ -98,26 +98,24 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart, setIs
     <div className='inspect-container container'>
         {isLoading && <LoadingScreen />}
 
-        <div className={`inspect-header-container ${isScrolled ? 'add-dropshadow' : ''}`}>
+        <div className='inspect-header-container'>
             <div className="inspect-header flex-box">
-                <div className={`inspect-header-left flex-box ${isScrollingDown ? 'shrink-container' : ''}`}>
+                <div className='inspect-header-left flex-box'>
                     <div className='inspect-furniture'>
                         <h1 className={furniture.name && furniture.name.length > 13 ? 'small-font' : 'big-font'}>
                             {furniture.name}
                         </h1>
 
-                        <p className={isScrollingDown ? 'hide-price' : ''}>USD {furniture.price && furniture.price.toLocaleString()}</p>
+                        <p>USD {furniture.price && furniture.price.toLocaleString()}</p>
                     </div>
+                </div>
 
+                <div className='inspect-header-right'>
                     <div className='add-to-cart-button flex-box' onClick={handleAddToCart} >
                         <i className='bx bx-plus'></i>
 
                         <p>Add to Cart</p>
                     </div>
-                </div>
-
-                <div className={`inspect-header-right ${isScrollingDown ? 'hide-designer' : ''}`}>
-                    <p>{furniture.designer}</p>
                 </div>
             </div>
         </div>
@@ -134,7 +132,13 @@ export default function Inspect({isScrolled, user, setUser, cart, setCart, setIs
             }
         </div>
         
-        <div className='inspect-details-container'>
+        <div className='inspect-details-container flex-box'>
+            <div className='inspect-detail flex-box'>
+                <p>Designer</p>
+
+                <p>{furniture.designer}</p>
+            </div>
+
             <div className='inspect-detail flex-box'>
                 <p>Material</p>
 
